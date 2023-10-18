@@ -1,4 +1,4 @@
-package com.bas.ChatApplication;
+package com.bas.chatapplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
