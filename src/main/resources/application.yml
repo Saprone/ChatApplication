@@ -1,11 +1,16 @@
+## Change server port
 server:
   port: 8090
+
+## Connect to database
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/jwt_security
-    username:
-    password:
     driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/jwt_security
+    username: postgres
+    password: Lbc6z)n5kI
+
+## Configure JPA
   jpa:
     hibernate:
       ddl-auto: create-drop
