@@ -18,22 +18,22 @@ public class JwtService {
 
     private  static final String SECRET_KEY = "c606de64c81a4c4e8549bac747ef5d15cef225efcbc79d15d3331f018614ea86";
 
-    public String extractUsername(String jwtToken) {
-        return extractClaim(jwtToken, Claims::getSubject);
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
     }
 
-    public <T> T extractClaim(String jwtToken, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(jwtToken);
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
 
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims (String jwtToken) {
+    private Claims extractAllClaims (String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJws(jwtToken)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
@@ -52,18 +52,18 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String jwtToken, UserDetails userDetails) {
-        final String username = extractUsername(jwtToken);
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
 
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(jwtToken);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
-    private boolean isTokenExpired(String jwtToken) {
-        return extractExpirationDate(jwtToken).before(new Date());
+    private boolean isTokenExpired(String token) {
+        return extractExpirationDate(token).before(new Date());
     }
 
-    private Date extractExpirationDate(String jwtToken) {
-       return extractClaim(jwtToken, Claims::getExpiration);
+    private Date extractExpirationDate(String token) {
+       return extractClaim(token, Claims::getExpiration);
     }
 
     private Key getSignInKey() {
