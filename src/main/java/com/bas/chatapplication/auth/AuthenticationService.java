@@ -30,9 +30,9 @@ public class AuthenticationService {
 
         repository.save(user);
 
-        var token = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user);
 
-        return AuthenticationResponse.builder().token(token).build();
+        return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
