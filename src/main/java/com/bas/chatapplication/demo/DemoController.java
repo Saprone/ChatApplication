@@ -12,7 +12,6 @@ public class DemoController {
 
     @GetMapping
     public ResponseEntity<String> sayHello() {
-        //return new ResponseEntity<>("Bad request test.", HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok("Hello from secured endpoint");
     }
 }
