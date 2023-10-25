@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -36,11 +35,16 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                request.getEmail(),
+                request.getPassword()
+            )
+        );
 
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
-        var token = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user);
 
-        return AuthenticationResponse.builder().token(token).build();
+        return AuthenticationResponse.builder().token(jwtToken).build();
     }
 }
