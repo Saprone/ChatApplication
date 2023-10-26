@@ -17,8 +17,9 @@ import java.security.Key;
 @Service
 public class JwtService {
 
-    @Value("${application.security.jwt.secret-key}")
-    private  String secretKey;
+    //@Value("${application.security.jwt.secret-key}")
+    //private  String secretKey;
+    private static final String secretKey = "c606de64c81a4c4e8549bac747ef5d15cef225efcbc79d15d3331f018614ea86";
     @Value("${application.security.jwt.expiration.access-token}")
     private long accessTokenExpiration;
     @Value("${application.security.jwt.expiration.refresh-token}")
