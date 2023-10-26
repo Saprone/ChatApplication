@@ -17,9 +17,8 @@ import java.security.Key;
 @Service
 public class JwtService {
 
-    //@Value("${application.security.jwt.secret-key}")
-    //private  String secretKey;
-    private static final String secretKey = "c606de64c81a4c4e8549bac747ef5d15cef225efcbc79d15d3331f018614ea86";
+    @Value("${application.security.jwt.secret-key}")
+    private  String secretKey;
     @Value("${application.security.jwt.expiration.access-token}")
     private long accessTokenExpiration;
     @Value("${application.security.jwt.expiration.refresh-token}")
@@ -44,16 +43,12 @@ public class JwtService {
             .getBody();
     }
 
-    public  String generateToken(UserDetails userDetails) {
-        return generateAccessToken(new HashMap<>(), userDetails);
+    public String generateAccessToken(UserDetails userDetails) {
+        return buildToken(new HashMap<>(), userDetails, accessTokenExpiration);
     }
 
     public String generateRefreshToken(UserDetails userDetails) {
         return buildToken(new HashMap<>(), userDetails, refreshTokenExpiration);
-    }
-
-    public String generateAccessToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return buildToken(extraClaims, userDetails, accessTokenExpiration);
     }
 
     private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long accessTokenExpiration) {
