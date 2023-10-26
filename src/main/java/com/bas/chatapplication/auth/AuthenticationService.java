@@ -4,6 +4,8 @@ import com.bas.chatapplication.config.JwtService;
 import com.bas.chatapplication.user.Role;
 import com.bas.chatapplication.user.User;
 import com.bas.chatapplication.user.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,10 +30,10 @@ public class AuthenticationService {
                 .build();
 
         repository.save(user);
-
         var accessToken = jwtService.generateAccessToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
 
-        return AuthenticationResponse.builder().accessToken(accessToken).build();
+        return AuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -43,8 +45,13 @@ public class AuthenticationService {
         );
 
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
-        var jwtToken = jwtService.generateAccessToken(user);
+        var accessToken = jwtService.generateAccessToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
 
-        return AuthenticationResponse.builder().accessToken(jwtToken).build();
+        return AuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+    }
+
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) {
+
     }
 }
