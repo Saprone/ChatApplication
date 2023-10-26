@@ -20,7 +20,7 @@ public class JwtService {
     @Value("${application.security.jwt.secret-key}")
     private  String secretKey;
     @Value("${application.security.jwt.expiration.access-token}")
-    private long accessTokenExpiration;
+    private long jwtTokenExpiration;
     @Value("${application.security.jwt.expiration.refresh-token}")
     private long refreshTokenExpiration;
 
@@ -43,8 +43,12 @@ public class JwtService {
             .getBody();
     }
 
-    public String generateAccessToken(UserDetails userDetails) {
-        return buildToken(new HashMap<>(), userDetails, accessTokenExpiration);
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails);
+    }
+
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        return buildToken(extraClaims, userDetails, jwtTokenExpiration);
     }
 
     public String generateRefreshToken(UserDetails userDetails) {
