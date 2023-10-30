@@ -1,6 +1,9 @@
 package com.bas.chatapplication.auth;
 
 import com.bas.chatapplication.config.JwtService;
+import com.bas.chatapplication.token.Token;
+import com.bas.chatapplication.token.TokenRepository;
+import com.bas.chatapplication.token.TokenType;
 import com.bas.chatapplication.user.Role;
 import com.bas.chatapplication.user.User;
 import com.bas.chatapplication.user.UserRepository;
@@ -25,6 +28,7 @@ import static java.net.http.HttpHeaders.*;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository repository;
+    private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -37,12 +41,13 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
-
-        repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        var savedUser = repository.save(user);
+        var accessToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
 
-        return AuthenticationResponse.builder().accessToken(jwtToken).refreshToken(refreshToken).build();
+        saveUserToken(savedUser, accessToken);
+
+        return AuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -56,6 +61,8 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
         var accessToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+
+        saveUserToken(user, accessToken);
 
         return AuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
     }
@@ -77,6 +84,7 @@ public class AuthenticationService {
 
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
+                saveUserToken(user, accessToken);
                 var authResponse = AuthenticationResponse.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
@@ -85,5 +93,16 @@ public class AuthenticationService {
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
         }
+    }
+
+    private void saveUserToken(User user, String accessToken) {
+        var token = Token.builder()
+                .user(user)
+                .token(accessToken)
+                .tokenType(TokenType.BEARER)
+                .revoked(false)
+                .expired(false)
+                .build();
+        tokenRepository.save(token);
     }
 }
