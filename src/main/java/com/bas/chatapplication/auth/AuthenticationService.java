@@ -62,6 +62,7 @@ public class AuthenticationService {
         var accessToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
 
+        revokeAllUserTokens(user);
         saveUserToken(user, accessToken);
 
         return AuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
@@ -104,5 +105,17 @@ public class AuthenticationService {
                 .expired(false)
                 .build();
         tokenRepository.save(token);
+    }
+
+    private void revokeAllUserTokens(User user) {
+        var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
+
+        if (validUserTokens.isEmpty())
+            return;
+        validUserTokens.forEach(token -> {
+            token.setExpired(true);
+            token.setRevoked(true);
+        });
+        tokenRepository.saveAll(validUserTokens);
     }
 }
