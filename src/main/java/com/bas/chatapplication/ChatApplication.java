@@ -21,8 +21,8 @@ public class ChatApplication {
 	public CommandLineRunner commandLineRunner (AuthenticationService service) {
 		return args -> {
 			var admin = RegisterRequest.builder()
-					.firstname("Admin")
-					.lastname("Admin")
+					.firstname("admin")
+					.lastname("admin")
 					.email("admin@email.com")
 					.password("password")
 					.role(ADMIN)
@@ -30,22 +30,13 @@ public class ChatApplication {
 			System.out.println("Admin token: " + service.register(admin).getAccessToken());
 
 			var manager = RegisterRequest.builder()
-					.firstname("Manager")
-					.lastname("Manager")
+					.firstname("manager")
+					.lastname("manager")
 					.email("manager@email.com")
 					.password("password")
 					.role(MANAGER)
 					.build();
 			System.out.println("Manager token: " + service.register(manager).getAccessToken());
-
-			var user = RegisterRequest.builder()
-					.firstname("user")
-					.lastname("user")
-					.email("user@email.com")
-					.password("password")
-					.role(USER)
-					.build();
-			System.out.println("User token: " + service.register(user).getAccessToken());
 		};
 	}
 }

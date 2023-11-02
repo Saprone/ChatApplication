@@ -13,16 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
-import java.net.http.HttpHeaders;
-
-import static java.net.http.HttpHeaders.*;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +32,7 @@ public class AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .role((request.getRole() == null) ? Role.USER : request.getRole())
                 .build();
         var savedUser = repository.save(user);
         var accessToken = jwtService.generateToken(user);
