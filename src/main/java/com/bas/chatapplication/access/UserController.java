@@ -4,8 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/admin")
-public class AdminController {
+@RequestMapping("/api/v1/user")
+public class UserController {
 
     @GetMapping("/verify-token")
     public ResponseEntity<String> verifyToken() {
@@ -14,21 +14,21 @@ public class AdminController {
 
     @GetMapping
     public String get() {
-        return "GET request successful from admin controller.";
+        return "GET request successful from user controller.";
     }
 
     @PostMapping
     public String post() {
-        return "POST request successful from admin controller.";
+        return "POST request successful from user controller.";
     }
 
     @PutMapping
     public String put() {
-        return "PUT request successful from admin controller.";
+        return "PUT request successful from user controller.";
     }
 
     @DeleteMapping
     public String delete() {
-        return "DELETE request successful from admin controller.";
+        return "DELETE request successful from user controller.";
     }
 }
