@@ -37,6 +37,15 @@ public class ChatApplication {
 					.role(MANAGER)
 					.build();
 			System.out.println("Manager token: " + service.register(manager).getAccessToken());
+
+			var user = RegisterRequest.builder()
+					.firstname("user")
+					.lastname("user")
+					.email("user@email.com")
+					.password("password")
+					.role(USER)
+					.build();
+			System.out.println("User token: " + service.register(user).getAccessToken());
 		};
 	}
 }
