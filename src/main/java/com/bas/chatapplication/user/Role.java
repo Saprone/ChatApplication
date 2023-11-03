@@ -34,7 +34,11 @@ public enum Role {
             MANAGER_READ,
             MANAGER_UPDATE,
             MANAGER_DELETE,
-            MANAGER_CREATE
+            MANAGER_CREATE,
+            USER_READ,
+            USER_UPDATE,
+            USER_DELETE,
+            USER_CREATE
         )
     ),
    USER(
