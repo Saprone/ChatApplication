@@ -1,10 +1,12 @@
 package com.bas.chatapplication.access;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/user")
+@Tag(name = "User")
 public class UserController {
 
     @GetMapping("/verify-token")

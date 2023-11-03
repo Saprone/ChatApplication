@@ -1,5 +1,6 @@
 package com.bas.chatapplication.auth;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@Tag(name = "Authentication")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
