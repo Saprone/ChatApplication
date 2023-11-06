@@ -1,6 +1,7 @@
 package com.bas.chatapplication.auth;
 
 import com.bas.chatapplication.config.JwtService;
+import com.bas.chatapplication.mfa.TwoFactorAuthenticationService;
 import com.bas.chatapplication.token.Token;
 import com.bas.chatapplication.token.TokenRepository;
 import com.bas.chatapplication.token.TokenType;
@@ -25,6 +26,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final TwoFactorAuthenticationService twoFactorAuthenticationService;
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
@@ -37,7 +39,7 @@ public class AuthenticationService {
                 .build();
 
         if (request.isMfaEnabled()) {
-            user.setSecret("");
+            user.setSecret(twoFactorAuthenticationService.generateNewSecret());
         }
 
         var savedUser = repository.save(user);
@@ -46,7 +48,12 @@ public class AuthenticationService {
 
         saveUserToken(savedUser, accessToken);
 
-        return AuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).mfaEnabled(user.isMfaEnabled()).build();
+        return AuthenticationResponse.builder()
+                .secretImageUri(twoFactorAuthenticationService.generateQrCodeImageUri(user.getSecret()))
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .mfaEnabled(user.isMfaEnabled())
+                .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -64,7 +71,10 @@ public class AuthenticationService {
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken);
 
-        return AuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
