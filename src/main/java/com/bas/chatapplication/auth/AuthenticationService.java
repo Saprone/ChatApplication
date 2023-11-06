@@ -33,14 +33,20 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role((request.getRole() == null) ? Role.USER : request.getRole())
+                .mfaEnabled(request.isMfaEnabled())
                 .build();
+
+        if (request.isMfaEnabled()) {
+            user.setSecret("");
+        }
+
         var savedUser = repository.save(user);
         var accessToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
 
         saveUserToken(savedUser, accessToken);
 
-        return AuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+        return AuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).mfaEnabled(user.isMfaEnabled()).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
