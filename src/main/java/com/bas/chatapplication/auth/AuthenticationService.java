@@ -65,6 +65,15 @@ public class AuthenticationService {
         );
 
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
+
+        if (user.isMfaEnabled()) {
+            return AuthenticationResponse.builder()
+                    .accessToken("")
+                    .refreshToken("")
+                    .mfaEnabled(true)
+                    .build();
+        }
+
         var accessToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
 
@@ -74,6 +83,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .mfaEnabled(false)
                 .build();
     }
 
