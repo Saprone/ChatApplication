@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {AuthenticationRequest} from "../../models/authentication-request";
+import {AuthenticationResponse} from "../../models/authentication-response";
 
 @Component({
   selector: 'app-login',
@@ -7,4 +9,13 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  authRequest: AuthenticationRequest = {};
+  authResponse: AuthenticationResponse = {};
+  otpCode = '';
+
+  authenticate() {
+  }
+
+  verifyCode() {
+  }
 }
