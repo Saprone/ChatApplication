@@ -32,17 +32,17 @@ public class AuthenticationController {
         return ResponseEntity.accepted().build();
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
-    @PostMapping("/refresh-token")
+    @PostMapping("/refresh-access-token")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         service.refreshToken(request, response);
     }
 
-    @PostMapping("/verify")
+    @PostMapping("/verify-qr-code")
     public ResponseEntity<?> verifyCode(@RequestBody VerificationRequest verificationRequest) {
         return ResponseEntity.ok(service.verifyCode(verificationRequest));
     }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Manager")
 public class ManagerController {
 
-    @GetMapping("/verify-token")
+    @GetMapping("/verify-jwt-token")
     public ResponseEntity<String> verifyToken() {
         return ResponseEntity.ok("Verification successful.");
     }
