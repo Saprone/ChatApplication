@@ -18,10 +18,10 @@ export class AuthenticationService {
   }
 
   login(authRequest: AuthenticationRequest) {
-    return this.http.post<AuthenticationResponse> (`${this.baseUrl}/authenticate`, authRequest);
+    return this.http.post<AuthenticationResponse> (`${this.baseUrl}/login`, authRequest);
   }
 
   verifyOTPCode(verificationRequest: VerificationRequest) {
-    return this.http.post<AuthenticationResponse> (`${this.baseUrl}/verify`, verificationRequest);
+    return this.http.post<AuthenticationResponse> (`${this.baseUrl}/verify-otp-code`, verificationRequest);
   }
 }

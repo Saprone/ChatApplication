@@ -42,7 +42,7 @@ public class AuthenticationController {
         service.refreshToken(request, response);
     }
 
-    @PostMapping("/verify-qr-code")
+    @PostMapping("/verify-otp-code")
     public ResponseEntity<?> verifyCode(@RequestBody VerificationRequest verificationRequest) {
         return ResponseEntity.ok(service.verifyCode(verificationRequest));
     }
