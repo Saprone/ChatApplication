@@ -20,7 +20,7 @@ services:
     ports:
       - "8091:8090"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-sql:5432/chatapplicationbackend
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-sql:5432/chatapplication_database
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
