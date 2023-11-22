@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.bas</groupId>
 	<artifactId>ChatApplication</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>ChatApplication</name>
 	<description>The main goal of this project is to make a secure webapplication</description>
 	<properties>

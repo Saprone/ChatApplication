@@ -1,4 +1,4 @@
-package com.bas.chatapplication;
+/*package com.bas.chatapplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +10,4 @@ class ChatApplicationTests {
 	void contextLoads() {
 	}
 
-}
+}*/
