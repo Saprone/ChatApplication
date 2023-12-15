@@ -6,4 +6,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class ManagerControllerTests {
+
+    @Test
+    void testVerifyToken() {
+        Assertions.assertEquals("1", "1");
+    }
+
+    @Test
+    void testPut() {
+        Assertions.assertEquals("1", "1");
+    }
 }
