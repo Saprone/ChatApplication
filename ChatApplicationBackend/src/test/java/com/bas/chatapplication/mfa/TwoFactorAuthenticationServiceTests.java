@@ -1,11 +1,9 @@
 package com.bas.chatapplication.mfa;
 
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@RequiredArgsConstructor
 @SpringBootTest
 class TwoFactorAuthenticationServiceTests {
 
