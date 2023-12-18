@@ -17,8 +17,8 @@ public class Token {
     @Id
     @GeneratedValue
     private Integer id;
-
     private String token;
+
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
 
