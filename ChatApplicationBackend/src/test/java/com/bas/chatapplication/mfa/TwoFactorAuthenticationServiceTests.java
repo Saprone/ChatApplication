@@ -20,4 +20,13 @@ class TwoFactorAuthenticationServiceTests {
         Assertions.assertInstanceOf(Boolean.class, response);
         Assertions.assertFalse(response);
     }
+
+    @Test
+    void testIsOtpNotValid() {
+        String code = "123456";
+        var response = twoFactorAuthenticationService.isOtpNotValid(secret, code);
+
+        Assertions.assertInstanceOf(Boolean.class, response);
+        Assertions.assertFalse(response);
+    }
 }
