@@ -1,4 +1,4 @@
-package com.bas.chatapplication.auth;
+//package com.bas.chatapplication.auth;
 
 /*import com.bas.chatapplication.auth.AuthenticationService;
 import org.junit.jupiter.api.Assertions;
