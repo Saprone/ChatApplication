@@ -17,4 +17,11 @@ class ApplicationConfigurationTests {
 
         Assertions.assertInstanceOf(Object.class, response);
     }
+
+    @Test
+    void testAuthenticationProvider() {
+        var response = applicationConfiguration.authenticationProvider();
+
+        Assertions.assertInstanceOf(Object.class, response);
+    }
 }
