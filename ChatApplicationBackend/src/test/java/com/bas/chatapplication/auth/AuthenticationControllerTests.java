@@ -1,5 +1,6 @@
 package com.bas.chatapplication.auth;
 
+import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -8,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 
 public class AuthenticationControllerTests {
 
-    /*@MockBean
+    @MockBean
     AuthenticationController authetnicationController = new AuthenticationController();
 
     @MockBean
@@ -16,16 +17,23 @@ public class AuthenticationControllerTests {
 
     @Test
     void testRegister() {
-        ResponseEntity<Object> request = ;
+
+        /*request.put("firstname", "bas");
+        request.put("lastname", "onrust");
+        request.put("email", "bas@user.com");
+        request.put("password", "12345");*/
 
         var response = authetnicationService.register(request);
 
         Assertions.assertNotNull(response);
-        Assertions.assertInstanceOf(String.class, response.secretImageUri);
-        Assertions.assertInstanceOf(String.class, response.accessToken);
-        Assertions.assertInstanceOf(String.class, response.refreshToken);
-        Assertions.assertEquals(false, response.mfaEnabled);
-    }*/
+
+        Assertions.assertInstanceOf(String.class, response.getSecretImageUri());
+        Assertions.assertInstanceOf(String.class, response.getAccessToken());
+        Assertions.assertInstanceOf(String.class, response.getRefreshToken());
+        Assertions.assertFalse(response.isMfaEnabled());
+
+        Assertions.assertEquals(HttpStatus.ACCEPTED, response);
+    }
 
     /*@Test
     void testAuthenticate() {
