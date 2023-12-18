@@ -13,7 +13,7 @@ import static com.bas.chatapplication.user.Role.ADMIN;
 import static com.bas.chatapplication.user.Role.MANAGER;
 
 @SpringBootTest
-public class AuthenticationControllerTests {
+class AuthenticationControllerTests {
 
     @Autowired
     AuthenticationService authenticationService;
