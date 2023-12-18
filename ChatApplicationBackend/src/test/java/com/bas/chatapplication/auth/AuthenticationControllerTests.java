@@ -1,29 +1,30 @@
 package com.bas.chatapplication.auth;
 
-import net.minidev.json.JSONObject;
+/*import com.bas.chatapplication.auth.AuthenticationService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
+import static com.bas.chatapplication.user.Role.ADMIN;
+
 
 public class AuthenticationControllerTests {
 
     @MockBean
-    AuthenticationController authetnicationController = new AuthenticationController();
-
-    @MockBean
-    AuthenticationService authetnicationService = new AuthenticationService();
+    AuthenticationService authenticationService = new AuthenticationService();
 
     @Test
     void testRegister() {
+        var admin = RegisterRequest.builder()
+            .firstname("admin")
+            .lastname("admin")
+            .email("admin@email.com")
+            .password("password")
+            .role(ADMIN)
+            .build();
 
-        /*request.put("firstname", "bas");
-        request.put("lastname", "onrust");
-        request.put("email", "bas@user.com");
-        request.put("password", "12345");*/
-
-        var response = authetnicationService.register(request);
+        var response = authenticationService.register(admin);
 
         Assertions.assertNotNull(response);
 
@@ -35,11 +36,11 @@ public class AuthenticationControllerTests {
         Assertions.assertEquals(HttpStatus.ACCEPTED, response);
     }
 
-    /*@Test
+    @Test
     void testAuthenticate() {
-        //ResponseEntity<Object> request = ;
+        ResponseEntity<Object> request = ;
 
-        //var response = authetnicationService.authenticate(request);
+        var response = authetnicationService.authenticate(request);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -47,11 +48,11 @@ public class AuthenticationControllerTests {
 
     @Test
     void testVerifyCode() {
-        //ResponseEntity<Object> request = ;
+        ResponseEntity<Object> request = ;
 
-        //var response = authetnicationService.verifyCode(request);
+        var response = authetnicationService.verifyCode(request);
 
         Assertions.assertNotNull(response);
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-    }*/
-}
+    }
+}*/
