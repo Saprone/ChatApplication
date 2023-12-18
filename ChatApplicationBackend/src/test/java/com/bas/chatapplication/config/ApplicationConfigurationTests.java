@@ -24,4 +24,13 @@ class ApplicationConfigurationTests {
 
         Assertions.assertInstanceOf(Object.class, response);
     }
+
+    @Test
+    void testPasswordEncoder() {
+        var response = applicationConfiguration.passwordEncoder();
+
+        Assertions.assertInstanceOf(Object.class, response);
+        Assertions.assertInstanceOf(String.class, response.encode("test"));
+        Assertions.assertTrue(response.matches("test", response.encode("test")));
+    }
 }
