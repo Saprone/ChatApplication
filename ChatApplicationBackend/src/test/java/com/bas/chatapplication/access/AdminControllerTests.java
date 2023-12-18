@@ -6,13 +6,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public class AdminControllerTests {
+class AdminControllerTests {
 
     @MockBean
     AdminController adminController = new AdminController();
 
     @Test
-    public void testVerifyToken() {
+    void testVerifyToken() {
         ResponseEntity<String> responseEntity = ResponseEntity.status(HttpStatus.OK).body("Verification successful.");
 
         Assertions.assertNotNull(responseEntity.getBody());
@@ -21,25 +21,25 @@ public class AdminControllerTests {
     }
 
     @Test
-    public void testGet() {
+    void testGet() {
         Assertions.assertNotNull(adminController.get());
         Assertions.assertEquals("GET request successful from admin controller.", (adminController.get()));
     }
 
     @Test
-    public void testPost() {
+    void testPost() {
         Assertions.assertNotNull(adminController.post());
         Assertions.assertEquals("POST request successful from admin controller.", (adminController.post()));
     }
 
     @Test
-    public void testPut() {
+    void testPut() {
         Assertions.assertNotNull(adminController.put());
         Assertions.assertEquals("PUT request successful from admin controller.", (adminController.put()));
     }
 
     @Test
-    public void testDelete() {
+    void testDelete() {
         Assertions.assertNotNull(adminController.delete());
         Assertions.assertEquals("DELETE request successful from admin controller.", (adminController.delete()));
     }

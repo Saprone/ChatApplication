@@ -6,12 +6,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public class ManagerControllerTests {
+class ManagerControllerTests {
     @MockBean
     ManagerController managerController = new ManagerController();
 
     @Test
-    public void testVerifyToken() {
+    void testVerifyToken() {
         ResponseEntity<String> responseEntity = ResponseEntity.status(HttpStatus.OK).body("Verification successful.");
 
         Assertions.assertNotNull(responseEntity.getBody());
@@ -20,25 +20,25 @@ public class ManagerControllerTests {
     }
 
     @Test
-    public void testGet() {
+    void testGet() {
         Assertions.assertNotNull(managerController.get());
         Assertions.assertEquals("GET request successful from manager controller.", (managerController.get()));
     }
 
     @Test
-    public void testPost() {
+    void testPost() {
         Assertions.assertNotNull(managerController.post());
         Assertions.assertEquals("POST request successful from manager controller.", (managerController.post()));
     }
 
     @Test
-    public void testPut() {
+    void testPut() {
         Assertions.assertNotNull(managerController.put());
         Assertions.assertEquals("PUT request successful from manager controller.", (managerController.put()));
     }
 
     @Test
-    public void testDelete() {
+    void testDelete() {
         Assertions.assertNotNull(managerController.delete());
         Assertions.assertEquals("DELETE request successful from manager controller.", (managerController.delete()));
     }
