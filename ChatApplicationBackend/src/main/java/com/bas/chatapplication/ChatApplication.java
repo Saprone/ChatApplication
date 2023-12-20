@@ -24,7 +24,7 @@ public class ChatApplication {
 					.firstname("admin")
 					.lastname("admin")
 					.email("admin@email.com")
-					.password("@dmin!Pass##w0rd")
+					.password("password")
 					.role(ADMIN)
 					.build();
 			System.out.println("Admin token: " + service.register(admin).getAccessToken());
@@ -33,19 +33,10 @@ public class ChatApplication {
 					.firstname("manager")
 					.lastname("manager")
 					.email("manager@email.com")
-					.password("M@n@ger#$P@ss")
+					.password("password")
 					.role(MANAGER)
 					.build();
 			System.out.println("Manager token: " + service.register(manager).getAccessToken());
-
-			var user = RegisterRequest.builder()
-					.firstname("testuser")
-					.lastname("testuser")
-					.email("testuser@email.com")
-					.password("testuserpassword")
-					.role(USER)
-					.build();
-			System.out.println("TestUser token: " + service.register(user).getAccessToken());
 		};
 	}
 }
