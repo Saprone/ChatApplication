@@ -1,29 +1,25 @@
-version: "3.8"
-
 services:
   postgres-sql:
     container_name: postgres-sql
     image: postgres
-    restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=jwt_security
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: jwt_security
     ports:
       - "5432:5432"
+    restart: unless-stopped
 
   spring-boot-app:
     container_name: chat-application-backend
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-sql:5432/jwt_security
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
       - "8091:8090"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-sql:5432/jwt_security
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    depends_on:
-      - postgres-sql
+    restart: unless-stopped
