@@ -44,6 +44,7 @@ public class ApplicationConfiguration {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
+        
         return authProvider;
     }
 
@@ -81,6 +82,7 @@ public class ApplicationConfiguration {
         ));
 
         source.registerCorsConfiguration("/**", config);
+
         return new CorsFilter(source);
     }
 }

@@ -51,11 +51,11 @@ public class AuthenticationService {
         saveUserToken(savedUser, accessToken);
 
         return AuthenticationResponse.builder()
-                .secretImageUri(twoFactorAuthenticationService.generateQrCodeImageUri(user.getSecret()))
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .mfaEnabled(user.isMfaEnabled())
-                .build();
+            .secretImageUri(twoFactorAuthenticationService.generateQrCodeImageUri(user.getSecret()))
+            .accessToken(accessToken)
+            .refreshToken(refreshToken)
+            .mfaEnabled(user.isMfaEnabled())
+            .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -70,10 +70,10 @@ public class AuthenticationService {
 
         if (user.isMfaEnabled()) {
             return AuthenticationResponse.builder()
-                    .accessToken("")
-                    .refreshToken("")
-                    .mfaEnabled(true)
-                    .build();
+                .accessToken("")
+                .refreshToken("")
+                .mfaEnabled(true)
+                .build();
         }
 
         var accessToken = jwtService.generateToken(user);
@@ -83,10 +83,10 @@ public class AuthenticationService {
         saveUserToken(user, accessToken);
 
         return AuthenticationResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .mfaEnabled(false)
-                .build();
+            .accessToken(accessToken)
+            .refreshToken(refreshToken)
+            .mfaEnabled(false)
+            .build();
     }
 
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -108,10 +108,10 @@ public class AuthenticationService {
                 var accessToken = jwtService.generateToken(user);
                 saveUserToken(user, accessToken);
                 var authResponse = AuthenticationResponse.builder()
-                        .accessToken(accessToken)
-                        .refreshToken(refreshToken)
-                        .mfaEnabled(false)
-                        .build();
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken)
+                    .mfaEnabled(false)
+                    .build();
 
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
@@ -138,6 +138,7 @@ public class AuthenticationService {
             token.setExpired(true);
             token.setRevoked(true);
         });
+
         tokenRepository.saveAll(validUserTokens);
     }
 
@@ -155,8 +156,8 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
-                .accessToken(jwtToken)
-                .mfaEnabled(user.isMfaEnabled())
-                .build();
+            .accessToken(jwtToken)
+            .mfaEnabled(user.isMfaEnabled())
+            .build();
     }
 }
