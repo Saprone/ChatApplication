@@ -1,3 +1,5 @@
+package org.example;
+
 public class ExploreMe {
     
     public static void exploreMe(int a, int b, String c) {
