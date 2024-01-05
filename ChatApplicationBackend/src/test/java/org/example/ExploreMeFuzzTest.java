@@ -1,4 +1,4 @@
-import org.example.ExploreMe;
+package org.example;
 import com.code_intelligence.jazzer.api.FuzzedDataProvider;
 import com.code_intelligence.jazzer.junit.FuzzTest;
 
